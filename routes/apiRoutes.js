@@ -4,6 +4,9 @@ const loginDatabase = require("../Schema/schema")
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken")
 const bookmarkSchema = require("../Schema/schemaForBookmark")
+router.get("/" , (req ,res )=>{
+    res.send({"hello " : "my name is jatin "})
+})
 router.post("/api/login" , async (req ,res )=>{
     try {
         const {email , password} = req.body

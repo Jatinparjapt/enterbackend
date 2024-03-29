@@ -54,13 +54,15 @@ router.post("/api/signup" , async (req ,res )=>{
 router.post("/api/logout", async (req ,res )=>{
     try {
         // const {token} = req.body
+        const {token ,email } = req.body
         console.log(req.body , "token")
-        const user = await loginDatabase.findOne({ "tokens.token": req.body });
+        const user = await loginDatabase.findOne({ email: email });
+        // console.log(user)
         // console.log(user ,token)
         if (!user) {
             return res.status(401).json({ error: "User not found or already logged out" });
         }
-        user.tokens = user.tokens.filter((tok) => tok.token !== req.body); // Remove the token from the tokens array
+        user.tokens = user.tokens.filter((tok) => tok.token !== token); // Remove the token from the tokens array
         await user.save();
         res.status(200).json({ message: "User logged out successfully" });
     } catch (error) {

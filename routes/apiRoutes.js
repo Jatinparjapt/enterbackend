@@ -7,12 +7,23 @@ const bookmarkSchema = require("../Schema/schemaForBookmark")
 router.get("/" , (req ,res )=>{
     res.send({"hello " : "my name is jatin "})
 })
+// router.get("/api/googleKey/login/user", (req ,res )=>{
+//     res.status(200).json({data : {
+//         apikey  :process.env.apikey,
+//         authDomain:process.env.authDomain,
+//         projectId : process.env.projectId,
+//         storageBucket:process.env.storageBucket,
+//         messagingSenderId:process.env.messagingSenderId,
+//         appId:process.env.appId,
+//         measurementId: process.env.measurementId
+//     }})
+// } )
 router.post("/api/login" , async (req ,res )=>{
     try {
         const {email , password} = req.body
         console.log(req.body)
         if(!email&& !password){
-            res.status(401).json({error: "Email and password are required"})
+            res.status(404).json({error: "Email and password are required"})
         }else{
             const findUser = await loginDatabase.findOne({email})
             if(findUser){
